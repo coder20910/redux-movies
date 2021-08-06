@@ -5,32 +5,37 @@ function New(props) {
     let { genres } = props;
     const [data, setData] = useState({
         title: "",
-        genre: "",
-        stock: "",
-        rate: ""
+        genre: {_id:"", name:""},
+        stock: '',
+        rate: '',
     });
     const [success, setSuccess] = useState(null);
 
     const handleChange = (e) => {
         let id = e.currentTarget.id;
         let value = e.target.value.trim();
-        
+
+        if(id === "stock" || id === "rate"){
+            value = Number(value);
+        }
+
+        if(id === "genre"){
+            for (let i = 0; i < genres.length; i++) {
+                if (genres[i].name === value) {
+                    value = genres[i];
+                    break;
+                }
+            }
+        }
+        console.log(id, value);
         let newObj = { ...data };
         newObj[id] = value;
         setData(newObj);
     }
     const handleSubmit = (e) => {
-        for (let i = 0; i < genres.length; i++) {
-            if (genres[i].name === data.genre) {
-                let value = genres[i];
-                let newObj = { ...data };
-                newObj[data.genre] = value;
-                setData(newObj);
-                break;
-            }
-        }
         e.preventDefault();
         props.addDataToMovies(data);
+
         setSuccess(true);
     }
     const handleSuccess = () => {
@@ -55,7 +60,7 @@ function New(props) {
                 </div>
                 <div className="form-group">
                     <label className="form-control" htmlFor="genre">Genre</label>
-                    <select name="genre" id="genre" value={data.genre} onChange={handleChange}>
+                    <select name="genre" id="genre" value={data.genre.name} onChange={handleChange}>
                         <option value=""></option>
                         <option value="Action">Action</option>
                         <option value="Comedy">Comedy</option>
@@ -66,7 +71,7 @@ function New(props) {
                 <div className="form-group">
                     <label htmlFor="stock">Stock</label>
                     <input type="number" className="form-control" id="stock"
-                        value={data.stockstock}
+                        value={data.stock}
                         onChange={handleChange}
                         placeholder="Enter number of stocks" />
                 </div>
@@ -74,9 +79,9 @@ function New(props) {
                 <div className="form-group">
                     <label htmlFor="rate">Rate</label>
                     <input type="number" className="form-control" id="rate"
+                        placeholder="Enter rate of per movie"
                         value={data.rate}
-                        onChange={handleChange}
-                        placeholder="Enter rate of a movie" />
+                        onChange={handleChange}/>
                 </div>
 
                 <button type="submit" className="btn btn-primary">Submit</button>

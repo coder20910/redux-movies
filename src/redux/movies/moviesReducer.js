@@ -19,7 +19,7 @@ function moviesReducer(state = initialState, action){
             }
         case "Add_Movie":
                 let {title, genre, stock, rate} = action.payload;
-            
+                console.log(genre);
                 let moviesObj = {
                   _id: Date.now(),
                   title,
