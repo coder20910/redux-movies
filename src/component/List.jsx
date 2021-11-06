@@ -16,7 +16,7 @@ function List({ genres, handleGenre }) {
     )
 }
 function mapDisptachToProps(store) {
-    return (store.Genres);
+    return store.Genres;
 }
 export default connect(mapDisptachToProps)(List);
 

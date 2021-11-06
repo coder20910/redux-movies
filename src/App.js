@@ -2,12 +2,12 @@ import React, {useEffect} from 'react'
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 import MoviesPage from "./component/MoviesPage";
-import Navbar from "./component/Navbar";
-import Login from "./component/Login";
+import Navbar from "./component/Navbar"
 import New from "./component/New";
 
 import {moviesFetchMiddleWare} from './redux/movies/moviesFetchMiddleWare';
 import {genresFetchMiddleWare} from './redux/genres/genresFetchMiddleWare';
+
 import {connect} from "react-redux";
 
 function App(props) {
@@ -26,7 +26,6 @@ function App(props) {
         <Navbar></Navbar>
         <Switch>
           <Route path="/new" component={New}></Route>
-          <Route path="/login" component={Login}></Route>
           <Route path="/" exact component={MoviesPage}></Route>
         </Switch>
       </Router>
